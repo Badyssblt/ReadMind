@@ -1,5 +1,5 @@
 <script setup>
-
+import axios from "axios";
 
 useHead({
   title: 'Mon compte'
@@ -12,9 +12,24 @@ const loadingToken = ref(false);
 const copied = ref(false);
 const searchTerm = ref("");
 
+const $config = useRuntimeConfig();
+
+const route = useRoute();
+
+const userToken = ref('');
+
 const getBooks = async () => {
   try {
-    const response = await $api.get('/api/books');
+    let response = null;
+    if(userToken.value){
+      response = await axios.get($config.public.API_URL + '/api/books', {
+        query: {
+          token: userToken.value
+        }
+      })
+    } else {
+      response = await $api.get('/api/books');
+    }
     books.value = response.data.member;
     console.log(books.value);
   } catch (e) {
@@ -50,7 +65,9 @@ const filteredBooks = computed(() => {
 });
 
 onMounted(() => {
+  userToken.value = route.query.token;
   getBooks();
+
 });
 </script>
 
