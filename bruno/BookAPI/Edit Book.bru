@@ -1,0 +1,21 @@
+meta {
+  name: Edit Book
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/api/book/the-greatest-estate-dev
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/merge-patch+json
+}
+
+body:json {
+  {
+    "chapter": 3
+  }
+}
