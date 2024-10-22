@@ -16,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 #[ApiResource()]
 #[GetCollection(
-    security: "is_granted('ROLE_USER')",
     provider: BookGetProvider::class,
 )]
 #[Patch(
