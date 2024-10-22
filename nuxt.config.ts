@@ -4,8 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      // API_URL: "http://localhost:8215",
-      API_URL: "https://readmind.badyssblilita.fr/v1"
+      API_URL: "http://localhost:8215",
+      // API_URL: "https://readmind.badyssblilita.fr/v1"
     }
   },
   postcss: {

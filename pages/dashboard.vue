@@ -23,15 +23,15 @@ const getBooks = async () => {
     let response = null;
     if(userToken.value){
       response = await axios.get($config.public.API_URL + '/api/books', {
-        query: {
+        params: {
           token: userToken.value
         }
       })
+
     } else {
       response = await $api.get('/api/books');
     }
     books.value = response.data.member;
-    console.log(books.value);
   } catch (e) {
     console.log(e);
   }
@@ -66,6 +66,7 @@ const filteredBooks = computed(() => {
 
 onMounted(() => {
   userToken.value = route.query.token;
+
   getBooks();
 
 });
