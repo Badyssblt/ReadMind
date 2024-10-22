@@ -2,6 +2,13 @@
 useHead({
   title: 'Accueil'
 })
+
+const isMobile = ref(false);
+
+onMounted(() => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  isMobile.value = /android|iphone|ipad|ipod/.test(userAgent)
+})
 </script>
 
 <template>
@@ -12,7 +19,8 @@ useHead({
     <p class="text-center opacity-60 my-6">L'extension ReadMind vous permet de garder en mémoire tous vos livres et les derniers chapitres que vous avez lus.</p>
     <div class="flex gap-4">
       <NavLink to="/register">Inscrivez vous</NavLink>
-      <a href="/data/readmind.zip" class="flex items-center">Télécharger l'extension</a>
+      <a v-if="!isMobile" href="/data/readmind.zip" class="flex items-center">Télécharger l'extension</a>
+      <a v-else href="/data/readmind.apk" class="flex items-center">Télécharger l'application</a>
     </div>
   </div>
   <div class="mx-auto max-w-screen-xl min-h-screen" id="how">
