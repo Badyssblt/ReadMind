@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     if (message.action === 'setCurrentChapter') {
-
+        console.log(message.data.currentURL)
         try {
             const response = await fetch(`https://readmind.badyssblilita.fr/v1/api/book/${message.data.slug}?token=${message.token}`, {
                 method: 'PATCH',
@@ -8,7 +8,8 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
                     'Content-Type': 'application/merge-patch+json',
                 },
                 body: JSON.stringify({
-                    chapter: parseInt(message.data.chapterNumber)
+                    chapter: parseInt(message.data.chapterNumber),
+                    currentURL: message.data.currentURL
                 })
             });
 

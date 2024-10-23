@@ -60,7 +60,7 @@ const extractChapterInfo = (url) => {
             const slug = match[2] || match[4];
             const chapterNumber = match[3] || match[5];
 
-            setCurrentChapter({ domain, slug, chapterNumber });
+            setCurrentChapter({ domain, slug, chapterNumber, currentUrl });
             return;
         }
     }
@@ -73,12 +73,14 @@ const extractChapterInfo = (url) => {
 
 
 const setCurrentChapter = async (data) => {
+
     chrome.runtime.sendMessage({
         action: 'setCurrentChapter',
         token: token,
         data: {
             slug: data.slug,
-            chapterNumber: data.chapterNumber
+            chapterNumber: data.chapterNumber,
+            currentURL: currentUrl
         }
     }, response => {
         // Vérifie que response n'est pas undefined avant de lire ses propriétés
